@@ -51,7 +51,17 @@ class Game
     puts "Scores : |#{player1.name} : #{@p1_points}|#{player2.name} : #{@p2_points}|"
   end
 
+  def blinking
+    5.times do
+      system("clear")
+      sleep(0.1)
+      refresh_grid
+      sleep(0.1)
+    end
+  end
+  
   def game_over(result)
+    blinking
     puts "\n\n"
     winner = who_is_winner?(result)
     puts "\n"
@@ -69,6 +79,7 @@ class Game
   def who_is_winner?(result)
     if result.class == String
       puts "Vous vous êtes mutuellement coincés."
+      victory_sound("What a bunch of losers ! It is a tie !")
     elsif result[0] == "P1"
       puts "Avant #{@player2.name} habitait en face du cimetière. Maintenant, il habite en face de chez lui."
       @p1_points +=1
@@ -114,18 +125,14 @@ class Game
       end
       break if choice.match?(/^y(es)?$/i) ||choice.match?(/^n(o)?$/i)
     end
+    launch_replay if choice.match?(/^y(es)?$/i)
+  end
 
-    if choice.match?(/^y(es)?$/i)
-      @board = Board.new
-      @game_count += 1
-      @switch = !@switch
-      if @switch
-        perform_reverse
-      else
-        perform
-      end
-    end
-
+  def launch_replay
+    @board = Board.new
+    @game_count += 1
+    @switch = !@switch
+    @switch ? perform_reverse : perform
   end
 
 
