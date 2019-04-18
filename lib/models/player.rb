@@ -5,8 +5,8 @@ class Player
   @@symbols = ['X', 'O', '+', '$', '€', '%', '@', '😈', '👿', '👽', '🦄', '🍺', '😇', '😋', '😎', '😍', '❤️']
   @@taken_symbols = []
 
-  def initialize
-    @name = choose_name
+  def initialize(rank)
+    @name = choose_name(rank)
     @symbol = choose_symbol
     @moves = []
   end
@@ -36,9 +36,9 @@ class Player
 
   private
 
-  def choose_name
+  def choose_name(rank)
     system('clear')
-    puts 'Indique ton nom ?'
+    puts "#{rank} joueur, indique ton nom ?"
     print '> '
     gets.chomp.capitalize
   end

@@ -1,17 +1,32 @@
 class Displayer
-  attr_reader :grid, :morpion_tab
+  attr_reader :grid, :morpion_tab, :cartouche
 
   def initialize
     @morpion_tab = [[" "," "," "],[" "," "," "],[" "," "," "]]
+    @cartouche = cartouche
     actualize_grid
+  end
+
+  def cartouche
+    @cartouche = Array.new
+    @cartouche << "==============================="
+    @cartouche << "||    == SUPER MORPION ==    ||"
+    @cartouche << "|| Le Morpion des champions !||"
+    @cartouche << "==============================="
+  end
+
+  def welcome
+    system("clear")
+    puts @cartouche
+    puts "\n\n"
+    puts "Bienvenue chez le Morpion des Gones -ades"
+    puts "Cela ne vous dirait pas de vous gratter en couple."
+    STDIN.getc
   end
 
   def actualize_grid
     @grid = []
-    @grid << "==============================="
-    @grid << "||    == SUPER MORPION ==    ||"
-    @grid << "|| Le Morpion des champions !||"
-    @grid << "============================="
+    @grid << @cartouche
     @grid << "        1     2     3"
     @grid << "      _________________"
     @grid << "    ||     |     |     ||"
@@ -23,6 +38,21 @@ class Displayer
     @grid << "    ||     |     |     ||"
     @grid << " C  ||  #{@morpion_tab[2][0]}  |  #{@morpion_tab[2][1]}  |  #{@morpion_tab[2][2]}  ||"
     @grid << "    ||_____|_____|_____||"
+  end
+
+  def convert(symbol1, symbol2)
+    @morpion_tab.each do |line|
+      line.each do |cell|
+        case cell
+        when 0
+          cell = " "
+        when 1
+          cell = symbol1
+        when 2
+          cell = symbol2
+        end
+      end
+    end
   end
 
   def display_grid(_morpion_tab = @morpion_tab)

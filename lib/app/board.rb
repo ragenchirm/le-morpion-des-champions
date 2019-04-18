@@ -5,7 +5,8 @@ class Board
     @boxes = [
     [0,0,0],
     [0,0,0],
-    [0,0,0]]
+    [0,0,0]
+  ]
   end
 
   def check_for_end_of_game
@@ -36,6 +37,10 @@ class Board
 
 
     def play(_player_number, _move)
+      @boxes[_move[0]][_move[1]] = _player_number
+    end
+
+    def convert_move(_move)
       case _move[0]
       when "A"
         line = 0
@@ -44,25 +49,13 @@ class Board
       when "C"
         line = 2
       end
-      case _move[1].to_i
-      when 1
-        col = 0
-      when 2
-        col = 1
-      when 3
-        col = 2
-      end
-      @boxes[line][col] = _player_number
+      col = _move[1].to_i - 1
+      [line,col]
     end
 
-    def is_empty(_line, _col)
-      if @boxes[line][col] == 0
-       return true
-     else
-      return false
+    def cell_is_empty?(_move)
+      @boxes[_move[0]][_move[1]] == 0
     end
-
-  end
 
 
 end
