@@ -7,7 +7,7 @@ class Game
     @player1 = Player.new("Premier", 1)
     @player2 = Player.new("Second", 2)
     @displayer.get_symbols(@player1.symbol, @player2.symbol)
-    @board = Board.new(@player1.symbol, @player2.symbol)
+    @board = Board.new
   end
 
   def perform

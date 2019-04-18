@@ -2,7 +2,7 @@ class Displayer
   attr_reader :grid, :morpion_tab, :cartouche, :symbol1, :symbol2
 
   def initialize
-    @morpion_tab = [[" "," "," "],[" "," "," "],[" "," "," "]]
+    @morpion_tab = [["","",""],["","",""],["","",""]]
     @cartouche = cartouche
     actualize_grid
   end
@@ -27,17 +27,17 @@ class Displayer
   def actualize_grid
     @grid = []
     @grid << @cartouche
-    @grid << "        1     2     3"
-    @grid << "      _________________"
-    @grid << "    ||     |     |     ||"
+    @grid << "         1      2      3"
+    @grid << "      ____________________"
+    @grid << "    ||      |      |      ||"
     @grid << " A  ||  #{@morpion_tab[0][0]}  |  #{@morpion_tab[0][1]}  |  #{@morpion_tab[0][2]}  ||"
-    @grid << "    ||_____|_____|_____||"
-    @grid << "    ||     |     |     ||"
+    @grid << "    ||______|______|______||"
+    @grid << "    ||      |      |      ||"
     @grid << " B  ||  #{@morpion_tab[1][0]}  |  #{@morpion_tab[1][1]}  |  #{@morpion_tab[1][2]}  ||"
-    @grid << "    ||_____|_____|_____||"
-    @grid << "    ||     |     |     ||"
+    @grid << "    ||______|______|______||"
+    @grid << "    ||      |      |      ||"
     @grid << " C  ||  #{@morpion_tab[2][0]}  |  #{@morpion_tab[2][1]}  |  #{@morpion_tab[2][2]}  ||"
-    @grid << "    ||_____|_____|_____||"
+    @grid << "    ||______|______|______||"
   end
 
   def convert
@@ -45,7 +45,7 @@ class Displayer
       line.map! do |cell|
         case cell
         when 0
-          cell = " "
+          cell = "  "
         when 1
           cell = @symbol1
         when 2
@@ -55,15 +55,20 @@ class Displayer
     end
   end
 
-  def display_grid(_morpion_tab = @morpion_tab)
-    @morpion_tab = _morpion_tab
-    convert
-    actualize_grid
-    puts @grid
-  end
+  def display_grid(_morpion_tab)
+   _morpion_tab.each_with_index{|line,l|
+    line.each_with_index{|cell,c|
+      @morpion_tab[l][c] = cell
+    }
+  }
 
-  def get_symbols(symbol1, symbol2)
-    @symbol1 = symbol1
-    @symbol2 = symbol2
-  end
+  convert
+  actualize_grid
+  puts @grid
+end
+
+def get_symbols(symbol1, symbol2)
+  @symbol1 = symbol1
+  @symbol2 = symbol2
+end
 end

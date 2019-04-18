@@ -2,7 +2,7 @@ class Player
   attr_reader :name, :symbol, :player_number
   attr_accessor :moves
 
-  @@symbols = ['X', 'O', '+', '$', '€', '%', '@', '😈', '👿', '👽', '🦄', '🍺', '😇', '😋', '😎', '😍', '❤️']
+  @@symbols = ['😈', '👿', '👽', '🦄', '🍺', '😇', '😋', '😎', '😍', '❤️ ']
   @@taken_symbols = []
 
   def initialize(rank, player_number)
@@ -55,7 +55,7 @@ class Player
     system('clear')
     choice_string = symbol_menu
     choice = choice_string.to_i
-    
+
     while !choice_string.match(/^\d+$/) || choice <= 0 || choice > @@symbols.length
       puts 'Choix invalide !'
       choice_string = symbol_menu
