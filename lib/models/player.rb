@@ -19,6 +19,21 @@ class Player
     @@symbols << @@taken_symbols.delete(@symbol)
   end
 
+  def play_move
+    move = ""
+    first_try = true
+
+    until /^[abc][123]$/i.match(move)
+      puts first_try ? "Choisis ton coup" : "Mauvaises coordonnées.\nChoisis de nouveau"
+      print "> "
+      move = gets.chomp
+      first_try = false
+      puts "\n"
+    end
+
+    move
+  end
+
   private
 
   def choose_name

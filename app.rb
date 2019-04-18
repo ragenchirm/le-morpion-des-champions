@@ -1,7 +1,7 @@
 # Welcome to the ruby project : morpion-des-champions
 require 'bundler'
 Bundler.require
-$LOAD_PATH << './../lib'
+$LOAD_PATH << './lib'
 require 'views/displayer'
 require 'models/player'
 
@@ -12,3 +12,5 @@ STDIN.getc
 dis.display_grid(tab)
 STDIN.getc
 dis.display_grid
+
+Player.new.play_move
