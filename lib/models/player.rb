@@ -1,23 +1,13 @@
 class Player
   attr_reader :name, :symbol, :player_number
-  attr_accessor :moves
 
-  @@symbols = ['😈', '👿', '👽', '🦄', '🍺', '😇', '😋', '😎', '😍', '❤️ ']
+  @@symbols = ['😈', '👿', '👽', '🦄', '🍺', '😇', '😋', '😎', '😍', '❤️ ', '💀', '👻', '💩', '😍', '🖕', '⚔️ ', '💲', '♠️ ', '♣️ ', '♦️ ']
   @@taken_symbols = []
 
   def initialize(rank, player_number)
     @name = choose_name(rank)
     @symbol = choose_symbol
-    @moves = []
     @player_number = player_number
-  end
-
-  def self.clear_symbols
-    @@taken_symbols = []
-  end
-
-  def put_back_symbols_available_symbols
-    @@symbols << @@taken_symbols.delete(@symbol)
   end
 
   def play_move

@@ -8,4 +8,3 @@ Amusez vous bien.. Quelques features ont été rajoutés comme par exemple :
 - un compteur de partie se met en route et le score des joueurs est affiché ;
 
 Fonctionne mieux sur Linux avec [espeak](https://doc.ubuntu-fr.org/espeak)
-

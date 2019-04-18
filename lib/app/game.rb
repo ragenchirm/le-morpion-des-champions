@@ -15,9 +15,15 @@ class Game
   end
 
   def perform
-    until result = board.check_for_end_of_game
-      player_turn(@player1)
-      player_turn(@player2) unless board.check_for_end_of_game
+    core_process(@player1, @player2)
+  end
+
+  private
+
+  def core_process(first_player, second_player)
+    until result = @board.check_for_end_of_game
+      player_turn(first_player)
+      player_turn(second_player) unless @board.check_for_end_of_game
     end
     refresh_grid
     game_over(result)
@@ -25,21 +31,15 @@ class Game
   end
 
   def perform_reverse
-    until result = board.check_for_end_of_game
-      player_turn(@player2)
-      player_turn(@player1) unless board.check_for_end_of_game
-    end
-    refresh_grid
-    game_over(result)
-    wanna_replay?
+    core_process(@player2, @player1)
   end
 
   def player_turn(player)
     refresh_grid
     puts "\n\n"
-    move = board.convert_move(player.play_move)
+    move = @board.convert_move(player.play_move)
     until @board.cell_is_empty?(move)
-      move = board.convert_move(player.play_move)
+      move = @board.convert_move(player.play_move)
     end
     @board.play(player.player_number, move)
   end
@@ -51,29 +51,12 @@ class Game
     puts "Scores : |#{player1.name} : #{@p1_points}|#{player2.name} : #{@p2_points}|"
   end
 
-  def blinking
-    5.times do
-      system("clear")
-      sleep(0.1)
-      refresh_grid
-      sleep(0.1)
-    end
-  end
-  
   def game_over(result)
     blinking
     puts "\n\n"
     winner = who_is_winner?(result)
     puts "\n"
     type_of_victory(result[1], winner) if result.class == Array
-  end
-
-  def victory_sound(message)
-    if OS.mac?
-      system("say #{message}")
-    else OS.linux?
-      system("echo #{message}|espeak")
-    end
   end
 
   def who_is_winner?(result)
@@ -95,23 +78,33 @@ class Game
 
   def type_of_victory(victory, winner)
     case victory[0]
-    when "C"
-      type = "colonne"
-    when "L"
-      type = "rangée"
-    when "D"
-      type = "diagonale"
+    when "C" then type = "colonne"
+    when "L" then type = "rangée"
+    when "D" then type = "diagonale"
     end
     case victory[1]
-    when "1"
-      rank = "première"
-    when "2"
-      rank = "seconde"
-    when "3"
-      rank = "troisième"
+    when "1" then rank = "première"
+    when "2" then rank = "seconde"
+    when "3" then rank = "troisième"
     end
-
     puts "#{winner.name} a triomphé en remplissant la #{rank} #{type}"
+  end
+
+  def blinking
+    5.times do
+      system("clear")
+      sleep(0.1)
+      refresh_grid
+      sleep(0.1)
+    end
+  end
+
+  def victory_sound(message)
+    if OS.mac?
+      system("say #{message}")
+    else OS.linux?
+      system("echo #{message}|espeak")
+    end
   end
 
   def wanna_replay?
@@ -134,7 +127,4 @@ class Game
     @switch = !@switch
     @switch ? perform_reverse : perform
   end
-
-
-
 end

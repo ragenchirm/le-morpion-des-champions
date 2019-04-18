@@ -6,15 +6,7 @@ class Displayer
     @cartouche = cartouche
     actualize_grid
   end
-
-  def cartouche
-    @cartouche = Array.new
-    @cartouche << "==============================="
-    @cartouche << "||    == SUPER MORPION ==    ||"
-    @cartouche << "|| Le Morpion des champions !||"
-    @cartouche << "==============================="
-  end
-
+  
   def welcome
     system("clear")
     puts @cartouche
@@ -22,6 +14,33 @@ class Displayer
     puts "Bienvenue chez le Morpion des Gones -ades"
     puts "Cela ne vous dirait pas de vous gratter en couple."
     STDIN.getc
+  end
+  
+  def display_grid(_morpion_tab)
+    _morpion_tab.each_with_index{|line,l|
+      line.each_with_index{|cell,c|
+        @morpion_tab[l][c] = cell
+      }
+    }
+
+    convert
+    actualize_grid
+    puts @grid
+  end
+
+  def get_symbols(symbol1, symbol2)
+    @symbol1 = symbol1
+    @symbol2 = symbol2
+  end
+  
+  private
+
+  def cartouche
+    @cartouche = Array.new
+    @cartouche << "==============================="
+    @cartouche << "||    == SUPER MORPION ==    ||"
+    @cartouche << "|| Le Morpion des champions !||"
+    @cartouche << "==============================="
   end
 
   def actualize_grid
@@ -54,21 +73,4 @@ class Displayer
       end
     end
   end
-
-  def display_grid(_morpion_tab)
-   _morpion_tab.each_with_index{|line,l|
-    line.each_with_index{|cell,c|
-      @morpion_tab[l][c] = cell
-    }
-  }
-
-  convert
-  actualize_grid
-  puts @grid
-end
-
-def get_symbols(symbol1, symbol2)
-  @symbol1 = symbol1
-  @symbol2 = symbol2
-end
 end
