@@ -1,5 +1,5 @@
 class Game
-  attr_reader :board, :player1, :player2, :displayer
+  attr_reader :board, :player1, :player2, :displayer, :@game_count
 
   def initialize
     @displayer = Displayer.new
@@ -7,6 +7,7 @@ class Game
     @player1 = Player.new("Premier", 1)
     @player2 = Player.new("Second", 2)
     @displayer.get_symbols(@player1.symbol, @player2.symbol)
+    @game_count=0
     @board = Board.new
   end
 
@@ -17,6 +18,8 @@ class Game
     end
     refresh_grid
     game_over(result)
+    wanna_replay?
+
   end
 
   def player_turn(player)
@@ -62,7 +65,6 @@ class Game
     when "D"
       type = "diagonale"
     end
-
     case victory[1]
     when "1"
       rank = "première"
@@ -70,8 +72,25 @@ class Game
       rank = "seconde"
     when "3"
       rank = "troisième"
-    end 
+    end
 
     puts "#{winner.name} a triomphé en remplissant la #{rank} #{type}"
+  end
+
+  def wanna_replay?
+    while true
+      puts "Ca en refait une chtite ma biche ? (y/n)"
+      print ">"
+      choice = gets.chomp
+      if !choice.match?(/^y(es)?$/i) && !choice.match?(/^n(o)?$/i)
+        puts "Merci de rentrer un choix correct gougnafier !"
+      end
+      break if choice.match?(/^y(es)?$/i) ||choice.match?(/^n(o)?$/i)
+    end
+    if choice.match?(/^y(es)?$/i)
+      @board = Board.new
+      @game_count += 1
+      perform
+    end
   end
 end
