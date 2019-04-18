@@ -1,5 +1,5 @@
 class Displayer
-  attr_reader :grid, :morpion_tab, :cartouche
+  attr_reader :grid, :morpion_tab, :cartouche, :symbol1, :symbol2
 
   def initialize
     @morpion_tab = [[" "," "," "],[" "," "," "],[" "," "," "]]
@@ -40,16 +40,16 @@ class Displayer
     @grid << "    ||_____|_____|_____||"
   end
 
-  def convert(symbol1, symbol2)
-    @morpion_tab.each do |line|
-      line.each do |cell|
+  def convert
+    @morpion_tab.map! do |line|
+      line.map! do |cell|
         case cell
         when 0
           cell = " "
         when 1
-          cell = symbol1
+          cell = @symbol1
         when 2
-          cell = symbol2
+          cell = @symbol2
         end
       end
     end
@@ -57,9 +57,13 @@ class Displayer
 
   def display_grid(_morpion_tab = @morpion_tab)
     @morpion_tab = _morpion_tab
+    convert
     actualize_grid
     puts @grid
-
   end
 
+  def get_symbols(symbol1, symbol2)
+    @symbol1 = symbol1
+    @symbol2 = symbol2
+  end
 end

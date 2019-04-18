@@ -32,7 +32,7 @@ class Board
     @boxes.each do |line| line.each{ |box| draw = false if box==0} end
       return "draw" if draw == true
       #if nothing return nul
-      return
+      return false
     end
 
 

@@ -1,14 +1,15 @@
 class Player
-  attr_reader :name, :symbol
+  attr_reader :name, :symbol, :player_number
   attr_accessor :moves
 
   @@symbols = ['X', 'O', '+', '$', '€', '%', '@', '😈', '👿', '👽', '🦄', '🍺', '😇', '😋', '😎', '😍', '❤️']
   @@taken_symbols = []
 
-  def initialize(rank)
+  def initialize(rank, player_number)
     @name = choose_name(rank)
     @symbol = choose_symbol
     @moves = []
+    @player_number = player_number
   end
 
   def self.clear_symbols
@@ -24,14 +25,14 @@ class Player
     first_try = true
 
     until /^[abc][123]$/i.match(move)
-      puts first_try ? "Choisis ton coup" : "Mauvaises coordonnées.\nChoisis de nouveau"
+      puts first_try ? "#{@name}, choisis ton coup" : "Mauvaises coordonnées.\nChoisis de nouveau"
       print "> "
       move = gets.chomp
       first_try = false
       puts "\n"
     end
 
-    move
+    move.upcase
   end
 
   private
