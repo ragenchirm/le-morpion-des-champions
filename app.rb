@@ -13,5 +13,5 @@ dis.display_grid(tab)
 STDIN.getc
 dis.display_grid
 
-player = Player.new
-p "#{player.name} a pour symbole #{player.symbol}"
+player1 = Player.new
+player2 = Player.new
