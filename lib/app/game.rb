@@ -111,7 +111,7 @@ class Game
     while true
       puts "Ca en refait une chtite ma biche ? (y/n)"
       puts "(Par contre on change l'ordre de jeu !)"
-      print ">"
+      print "> "
       choice = gets.chomp
       if !choice.match?(/^y(es)?$/i) && !choice.match?(/^n(o)?$/i)
         puts "Merci de rentrer un choix correct gougnafier !"
