@@ -12,5 +12,3 @@ STDIN.getc
 dis.display_grid(tab)
 STDIN.getc
 dis.display_grid
-
-Player.new.play_move
