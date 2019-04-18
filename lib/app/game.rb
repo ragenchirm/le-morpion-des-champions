@@ -64,6 +64,8 @@ class Game
     elsif result[0] == "P1"
       puts "Avant #{@player2.name} habitait en face du cimetière. Maintenant, il habite en face de chez lui."
       @p1_points +=1
+      pid = fork{ exec exec 'mpg123','-q', 'media/Player1_wins.mp3' }
+      pid = fork{exec 'afplay', 'media/Player1_wins.mp3'}
       return @player1
     else
       puts "Dans ce monde, il y a deux types de personnes. Ceux qui ont un pistolet et ceux qui creusent. #{@player1.name}, il creuse."
