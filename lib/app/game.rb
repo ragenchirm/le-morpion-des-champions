@@ -58,18 +58,26 @@ class Game
     type_of_victory(result[1], winner) if result.class == Array
   end
 
+  def victory_sound(message)
+    if OS.mac?
+      system("say #{message}")
+    else OS.linux?
+      system("echo #{message}|espeak")
+    end
+  end
+
   def who_is_winner?(result)
     if result.class == String
       puts "Vous vous êtes mutuellement coincés."
     elsif result[0] == "P1"
       puts "Avant #{@player2.name} habitait en face du cimetière. Maintenant, il habite en face de chez lui."
       @p1_points +=1
-      pid = fork{ exec exec 'mpg123','-q', 'media/Player1_wins.mp3' }
-      pid = fork{exec 'afplay', 'media/Player1_wins.mp3'}
+      victory_sound('Player1 crushed his foe. Player2 is a pathetic loser.')
       return @player1
     else
       puts "Dans ce monde, il y a deux types de personnes. Ceux qui ont un pistolet et ceux qui creusent. #{@player1.name}, il creuse."
       @p2_points +=1
+      victory_sound('Player2 took the skull of his foe as his personal goblet and impaled his body.')
       return player2
     end
   end
