@@ -2,16 +2,15 @@ class Player
   attr_reader :name, :symbol
   attr_accessor :moves
 
-  @@symbols = ['X', 'O', '+', '$', '€', '%', '@', '😈', '👿', '👽', '🦄', '🍺', '😇', '😋', '😎', '😍']
+  @@symbols = ['X', 'O', '+', '$', '€', '%', '@', '😈', '👿', '👽', '🦄', '🍺', '😇', '😋', '😎', '😍', '❤️']
   @@taken_symbols = []
 
   def initialize
     @name = choose_name
     @symbol = choose_symbol
     @moves = []
-
   end
-  
+
   def self.clear_symbols
     @@taken_symbols = []
   end
@@ -25,14 +24,14 @@ class Player
   def choose_name
     system('clear')
     puts 'Indique ton nom ?'
-    print "> "
+    print '> '
     gets.chomp.capitalize
   end
 
   def symbol_menu
     puts "#{@name}, choisis ton symbole."
     @@symbols.length.times { |index| puts "#{index + 1} - #{@@symbols[index]}" }
-    print "> "
+    print '> '
     gets.chomp
   end
 
@@ -42,7 +41,7 @@ class Player
     choice = choice_string.to_i
     
     while !choice_string.match(/^\d+$/) || choice <= 0 || choice > @@symbols.length
-      puts "Choix invalide !"
+      puts 'Choix invalide !'
       choice_string = symbol_menu
       choice = choice_string.to_i
     end
